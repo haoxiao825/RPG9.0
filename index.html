@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Realm of Nova</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+<header class="top">
+  <div><div class="brand">REALM OF NOVA</div><h1 id="heroName">Nova</h1><div class="muted">Lv.<span id="level">0</span> · <span id="className">冒險者</span></div></div>
+  <div class="topRight"><span id="syncDot" class="dot"></span><span id="syncText">本機存檔</span><button id="settingsBtn">⚙️</button></div>
+</header>
+
+<main>
+<section id="world" class="screen active">
+  <div class="heroCard">
+    <div class="heroArt">🧙</div>
+    <div class="heroInfo"><div class="muted">冒險進度</div><div class="xp"><span id="xpFill"></span></div><small id="xpText">0 / 100 XP</small>
+    <div class="bars"><div><span>❤️ HP</span><b id="hpText">100/100</b><i id="hpFill"></i></div><div><span>⚡ 能量</span><b id="energyText">100/100</b><i id="energyFill"></i></div></div></div>
+  </div>
+  <div class="resources"><div>💰 <b id="gold">0</b><small>金幣</small></div><div>💎 <b id="gems">0</b><small>寶石</small></div><div>🏆 <b id="fame">0</b><small>聲望</small></div><div>🎒 <b id="bagCount">0</b><small>收藏</small></div></div>
+  <h2>世界</h2>
+  <div class="worldGrid">
+    <button data-go="adventure"><span>🌲</span><strong>翡翠森林</strong><small>探索 · 戰鬥 · 採集</small></button>
+    <button data-go="dungeon"><span>🏰</span><strong>古代遺跡</strong><small>地城 · 寶箱 · Boss</small></button>
+    <button data-go="town"><span>🏘️</span><strong>星港城</strong><small>商店 · 酒館 · 任務</small></button>
+    <button data-go="arena"><span>⚔️</span><strong>競技場</strong><small>挑戰 · 連勝</small></button>
+  </div>
+  <div class="card event"><div><span class="tag">今日事件</span><h3 id="eventTitle">森林的神秘商人出現了</h3><p id="eventText" class="muted">今天的世界可能會遇到不同事件。</p></div><button id="eventBtn">探索</button></div>
+</section>
+
+<section id="adventure" class="screen">
+  <div class="heading"><h2>🌲 翡翠森林</h2><button data-back>返回</button></div>
+  <div id="adventureBox" class="card"></div>
+</section>
+
+<section id="dungeon" class="screen">
+  <div class="heading"><h2>🏰 古代遺跡</h2><button data-back>返回</button></div>
+  <div id="dungeonBox" class="card"></div>
+</section>
+
+<section id="arena" class="screen">
+  <div class="heading"><h2>⚔️ 競技場</h2><button data-back>返回</button></div>
+  <div id="arenaBox" class="card"></div>
+</section>
+
+<section id="town" class="screen">
+  <div class="heading"><h2>🏘️ 星港城</h2><button data-back>返回</button></div>
+  <div class="townGrid">
+    <button data-go="shop">🏪<b>商會</b><small>裝備、藥水、寶箱</small></button>
+    <button data-go="quests">📜<b>冒險者公會</b><small>主線與支線任務</small></button>
+    <button data-go="pets">🐾<b>馴獸屋</b><small>寵物、餵食、進化</small></button>
+    <button data-go="learning">📚<b>學院</b><small>學習挑戰，只是世界的一部分</small></button>
+  </div>
+</section>
+
+<section id="quests" class="screen">
+  <div class="heading"><h2>📜 任務</h2><button data-back>返回</button></div>
+  <div class="tabs"><button data-tab="main">主線</button><button data-tab="daily">每日</button><button data-tab="personal">自訂</button></div>
+  <div id="questList" class="stack"></div>
+  <button id="addQuest" class="wide">＋建立自己的任務</button>
+</section>
+
+<section id="learning" class="screen">
+  <div class="heading"><h2>📚 學院</h2><button data-back>返回</button></div>
+  <div class="card"><span class="tag">世界中的一個系統</span><h3>知識試煉</h3><p class="muted">完成學習挑戰可以獲得冒險資源，但你也可以完全不學習，照樣探索、戰鬥、收集和養成。</p><button id="startLearn" class="primary">開始 10 題挑戰</button></div>
+  <div id="learnBox"></div>
+</section>
+
+<section id="shop" class="screen">
+  <div class="heading"><h2>🏪 商會</h2><button data-back>返回</button></div>
+  <div class="tabs"><button data-shop="all">全部</button><button data-shop="gear">裝備</button><button data-shop="pet">寵物</button><button data-shop="consumable">道具</button></div>
+  <div id="shopList" class="shopGrid"></div>
+</section>
+
+<section id="pets" class="screen">
+  <div class="heading"><h2>🐾 馴獸屋</h2><button data-back>返回</button></div>
+  <div id="petList" class="petGrid"></div>
+</section>
+
+<section id="inventory" class="screen">
+  <div class="heading"><h2>🎒 背包</h2><button data-back>返回</button></div>
+  <div class="equipPanel"><h3>角色裝備</h3><div id="equipped" class="equipSlots"></div></div>
+  <div id="inventoryList" class="stack"></div>
+</section>
+
+<section id="profile" class="screen">
+  <div class="heading"><h2>🧑‍🚀 角色</h2><button data-back>返回</button></div>
+  <div class="card profileCard"><div class="bigAvatar">🧙</div><h2 id="profileName">Nova</h2><p class="muted">冒險者 · Lv.<span id="profileLevel">0</span></p><div class="statGrid" id="profileStats"></div></div>
+</section>
+
+<section id="achievements" class="screen">
+  <div class="heading"><h2>🏆 成就</h2><button data-back>返回</button></div>
+  <div id="achievementList" class="stack"></div>
+</section>
+
+<section id="settings" class="screen">
+  <div class="heading"><h2>☁️ 帳號與同步</h2><button data-back>返回</button></div>
+  <div class="card"><h3>跨裝置存檔</h3><p class="muted">登入同一個帳號後，角色、裝備、寵物、任務、世界進度都能同步到手機與電腦。</p>
+    <label>Email<input id="email" type="email" placeholder="Email"></label><label>密碼<input id="password" type="password" placeholder="至少 6 位"></label>
+    <div class="row"><button id="signup" class="primary">註冊</button><button id="login">登入</button></div><button id="logout" class="danger">登出</button><p id="authMsg" class="muted"></p>
+  </div>
+  <div class="card"><h3>同步狀態</h3><p id="accountInfo">本機模式：資料只存在目前裝置。</p><button id="syncNow">立即同步</button></div>
+</section>
+</main>
+
+<nav>
+<button data-go="world">🌎<small>世界</small></button><button data-go="quests">📜<small>任務</small></button><button data-go="inventory">🎒<small>背包</small></button><button data-go="pets">🐾<small>寵物</small></button><button data-go="profile">🧑‍🚀<small>角色</small></button><button data-go="achievements">🏆<small>成就</small></button>
+</nav>
+</div>
+<script src="config.js"></script><script src="app.js"></script>
+</body></html>
